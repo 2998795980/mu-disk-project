@@ -1,0 +1,14 @@
+server:
+  port: 9991
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mu_disk?serverTimezone=Asia/Shanghai&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: anzhen3531
+# mybatis-plus
+mybatis-plus:
+  type-aliases-package: xyz.ziang.mudisk.entity
+  #  ????mapper????
+  mapper-locations: classpath:mapper/*.xml

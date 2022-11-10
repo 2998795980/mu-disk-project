@@ -1,3 +1,4 @@
+# 服务端口
 server:
   port: 9991
 
@@ -10,5 +11,5 @@ spring:
 # mybatis-plus
 mybatis-plus:
   type-aliases-package: xyz.ziang.mudisk.entity
-  #  ????mapper????
+  #  mapper 文件映射
   mapper-locations: classpath:mapper/*.xml

@@ -71,7 +71,20 @@ public class FolderController {
     }
 
     /**
-     * 删除文件夹
+     * 将文件夹放入回收站 递归删除
+     * 
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/recovery/{id}")
+    public ApiResult<Void> deleteFolderToRecovery(@PathVariable("id") Long id) {
+        FileStoreEntity fileStoreEntity = validator.validateFileStoreExist(id);
+        fileStoreService.recovery(fileStoreEntity);
+        return ApiResult.success();
+    }
+
+    /**
+     * 删除文件夹 递归删除
      *
      * @param id 文件夹id
      * @return Void

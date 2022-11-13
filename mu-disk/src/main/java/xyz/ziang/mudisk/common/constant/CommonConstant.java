@@ -7,6 +7,11 @@ public interface CommonConstant {
     Integer ARCHIVE_STATE = 0;
 
     /**
+     * 回收状态
+     */
+    Integer RECOVER = 2;
+
+    /**
      * 文件夹为1
      */
     Integer FOLDER = 1;

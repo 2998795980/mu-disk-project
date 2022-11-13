@@ -22,4 +22,10 @@ public interface FileStoreService extends MpCrudBaseService<FileStoreEntity> {
      * @return 节点树
      */
     List<TreeNode<FileStoreEntity>> buildTreeNode(Long id);
+
+    /**
+     * 将文件夹下所有的文件及文件夹移动到回收站中
+     * @param fileStoreEntity 文件夹对象
+     */
+    void recovery(FileStoreEntity fileStoreEntity);
 }

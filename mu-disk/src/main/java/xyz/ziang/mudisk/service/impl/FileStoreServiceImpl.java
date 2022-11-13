@@ -29,12 +29,7 @@ public class FileStoreServiceImpl extends MpCrudBaseServiceImpl<FileStoreEntity,
 
     @Override
     public List<TreeNode<FileStoreEntity>> buildRootTreeNode() {
-        // 先查询parent id 为0的根节点
-        // 之后递归查询所有的子节点
-        QueryWrapper<FileStoreEntity> queryWrapper = new QueryWrapper<>();
-        List<FileStoreEntity> fileStoreEntities = repository.selectList(queryWrapper);
-        queryWrapper.eq("parent_id", CommonConstant.TREE_ROOT_ID);
-        queryWrapper.eq("state", CommonConstant.ACTIVE_STATE);
+        List<FileStoreEntity> fileStoreEntities = super.findAll();
         return this.buildRootTreeNode(CommonConstant.TREE_ROOT_ID, fileStoreEntities);
     }
 
@@ -45,6 +40,32 @@ public class FileStoreServiceImpl extends MpCrudBaseServiceImpl<FileStoreEntity,
         queryWrapper.eq("state", CommonConstant.ACTIVE_STATE);
         List<FileStoreEntity> fileStoreEntities = repository.selectList(queryWrapper);
         return this.buildRootTreeNode(id, fileStoreEntities);
+    }
+
+    @Override
+    public void recovery(FileStoreEntity fileStoreEntity) {
+        List<FileStoreEntity> fileStoreEntities = List.of(fileStoreEntity);
+        this.findAllChild(fileStoreEntity.getId(), fileStoreEntities);
+        fileStoreEntities.forEach(fileStore -> fileStore.setState(CommonConstant.RECOVER));
+        super.batchUpdate(fileStoreEntities);
+    }
+
+    /**
+     * 
+     * @param rootId
+     * @return
+     */
+    private void findAllChild(Long rootId, List<FileStoreEntity> fileStoreEntityList) {
+        if (!CollectionUtils.isEmpty(fileStoreEntityList)) {
+            QueryWrapper<FileStoreEntity> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("parent_id", rootId);
+            queryWrapper.eq("state", CommonConstant.ACTIVE_STATE);
+            List<FileStoreEntity> fileStoreEntities = repository.selectList(queryWrapper);
+            if (!CollectionUtils.isEmpty(fileStoreEntities)) {
+                fileStoreEntityList.addAll(fileStoreEntities);
+            }
+            findAllChild(fileStoreEntities.get(0).getId(), fileStoreEntityList);
+        }
     }
 
     /**

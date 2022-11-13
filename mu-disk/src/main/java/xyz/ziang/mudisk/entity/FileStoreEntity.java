@@ -1,7 +1,10 @@
 package xyz.ziang.mudisk.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import xyz.ziang.mudisk.common.entity.MpBaseEntity;
 
+@TableName("file_store")
 public class FileStoreEntity extends MpBaseEntity {
     /**
      * 文件名称
@@ -25,8 +28,20 @@ public class FileStoreEntity extends MpBaseEntity {
      */
     private Integer fileType;
 
-    public FileStoreEntity() {
+    /**
+     * 排序
+     */
+    private Integer sort;
+
+    public Integer getSort() {
+        return sort;
     }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    public FileStoreEntity() {}
 
     public FileStoreEntity(String fileName, String fileSize, String fileLocation, Long parentId, Integer fileType) {
         this.fileName = fileName;
@@ -78,12 +93,8 @@ public class FileStoreEntity extends MpBaseEntity {
 
     @Override
     public String toString() {
-        return "FileStore{" +
-                "fileName='" + fileName + '\'' +
-                ", fileSize='" + fileSize + '\'' +
-                ", fileLocation='" + fileLocation + '\'' +
-                ", parentId=" + parentId +
-                ", fileType=" + fileType +
-                '}';
+        return "FileStoreEntity{" + "fileName='" + fileName + '\'' + ", fileSize='" + fileSize + '\''
+            + ", fileLocation='" + fileLocation + '\'' + ", parentId=" + parentId + ", fileType=" + fileType + ", sort="
+            + sort + '}';
     }
 }

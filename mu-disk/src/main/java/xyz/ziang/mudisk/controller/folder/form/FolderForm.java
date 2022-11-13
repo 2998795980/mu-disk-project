@@ -1,13 +1,24 @@
 package xyz.ziang.mudisk.controller.folder.form;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import xyz.ziang.mudisk.common.constant.CommonConstant;
 import xyz.ziang.mudisk.entity.FileStoreEntity;
-
-import javax.validation.constraints.NotBlank;
 
 public class FolderForm {
     @NotBlank(message = "文件夹名称不能为空")
     private String folderName;
+    @NotNull(message = "节点id不能为空")
+    private Long parentId;
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
 
     public String getFolderName() {
         return folderName;
@@ -28,7 +39,8 @@ public class FolderForm {
         fileStoreEntity.setFileLocation(null);
         fileStoreEntity.setFileSize("0");
         fileStoreEntity.setFileType(CommonConstant.FOLDER);
-        fileStoreEntity.setParentId(0L);
+        fileStoreEntity.setParentId(parentId);
+        fileStoreEntity.setSort(0);
         return fileStoreEntity;
     }
 

@@ -103,7 +103,7 @@ public class FileStoreServiceImpl extends MpCrudBaseServiceImpl<FileStoreEntity,
         if (!CollectionUtils.isEmpty(rootNodeList)) {
             for (TreeNode<FileStoreEntity> rootNode : rootNodeList) {
                 List<TreeNode<FileStoreEntity>> childNodeList = fileStoreEntities.stream()
-                    .filter(fileStoreEntity -> rootNode.getId().equals(fileStoreEntity.getId()))
+                    .filter(fileStoreEntity -> rootNode.getId().equals(fileStoreEntity.getParentId()))
                     .map(fileStoreEntity -> {
                         TreeNode<FileStoreEntity> fileStoreEntityTreeNode = new TreeNode<>();
                         fileStoreEntityTreeNode.setData(fileStoreEntity);

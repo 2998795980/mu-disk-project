@@ -1,7 +1,12 @@
 package xyz.ziang.mudisk.common.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -9,18 +14,16 @@ import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+
 import xyz.ziang.mudisk.common.constant.CommonConstant;
 import xyz.ziang.mudisk.common.context.AccountInfoContext;
 import xyz.ziang.mudisk.common.context.AccountInfoContextHolder;
 import xyz.ziang.mudisk.common.entity.MpBaseEntity;
 import xyz.ziang.mudisk.common.mapper.MpBaseMapper;
 import xyz.ziang.mudisk.common.service.MpCrudBaseService;
-
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.*;
-import java.util.stream.Collectors;
 
 public class MpCrudBaseServiceImpl<T extends MpBaseEntity, R extends MpBaseMapper<T>> implements MpCrudBaseService<T> {
 
@@ -37,8 +40,8 @@ public class MpCrudBaseServiceImpl<T extends MpBaseEntity, R extends MpBaseMappe
         this.repository = repository;
         // 获取范型子类的类型
         Type genType = getClass().getGenericSuperclass();
-        Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
-        entityClass = (Class) params[0];
+        Type[] params = ((ParameterizedType)genType).getActualTypeArguments();
+        entityClass = (Class)params[0];
     }
 
     @Override
@@ -88,7 +91,8 @@ public class MpCrudBaseServiceImpl<T extends MpBaseEntity, R extends MpBaseMappe
     @Override
     public T create(T resource) {
         this.assembleBaseInfo(resource, true);
-        resource.setState(CommonConstant.ARCHIVE_STATE);
+        resource.setState(CommonConstant.ACTIVE_STATE);
+        resource.setCreatedTime(LocalDateTime.now());
         repository.insert(resource);
         return resource;
     }
@@ -98,10 +102,10 @@ public class MpCrudBaseServiceImpl<T extends MpBaseEntity, R extends MpBaseMappe
     public List<T> batchCreate(List<T> resources) {
         return resources.stream().peek(resource -> {
             this.assembleBaseInfo(resource, true);
+            resource.setCreatedTime(LocalDateTime.now());
             repository.insert(resource);
         }).collect(Collectors.toList());
     }
-
 
     @Override
     public T update(T resource) {
@@ -113,6 +117,7 @@ public class MpCrudBaseServiceImpl<T extends MpBaseEntity, R extends MpBaseMappe
 
         this.copyNonNullProperties(resource, update);
         this.assembleBaseInfo(update, false);
+        resource.setUpdatedTime(LocalDateTime.now());
         repository.updateById(update);
         return update;
     }
@@ -120,6 +125,7 @@ public class MpCrudBaseServiceImpl<T extends MpBaseEntity, R extends MpBaseMappe
     @Override
     public T updateAllProperties(T resource) {
         this.assembleBaseInfo(resource, false);
+        resource.setUpdatedTime(LocalDateTime.now());
         repository.updateById(resource);
         return resource;
     }
@@ -129,6 +135,7 @@ public class MpCrudBaseServiceImpl<T extends MpBaseEntity, R extends MpBaseMappe
     public void batchUpdate(List<T> resources) {
         resources.forEach(resource -> {
             this.assembleBaseInfo(resource, false);
+            resource.setUpdatedTime(LocalDateTime.now());
             repository.updateById(resource);
         });
     }
@@ -163,6 +170,7 @@ public class MpCrudBaseServiceImpl<T extends MpBaseEntity, R extends MpBaseMappe
     public void achieve(T resource) {
         resource.setState(CommonConstant.ARCHIVE_STATE);
         this.assembleBaseInfo(resource, false);
+        resource.setUpdatedTime(LocalDateTime.now());
         repository.updateById(resource);
     }
 
@@ -177,7 +185,6 @@ public class MpCrudBaseServiceImpl<T extends MpBaseEntity, R extends MpBaseMappe
         }
         repository.update(null, updateWrapper);
     }
-
 
     /**
      * 组装基础信息

@@ -41,6 +41,23 @@ public class HandlerFileController {
     }
 
     /**
+     * 上传文件 分片
+     * <p/>
+     * 这个接口不适用大文件上传 大文件需要分片上传
+     *
+     * @param file 文件
+     * @param id 父节点id
+     * @return Void
+     */
+    @PostMapping("/upload/slice/{id}")
+    public ApiResult<Void> uploadFileSlice(@RequestPart MultipartFile file, @PathVariable("id") Long id)
+        throws IOException {
+        folderValidator.validateFileStoreExist(id);
+        handlerFileService.uploadFileSlice(file, id);
+        return ApiResult.success();
+    }
+
+    /**
      * 下载文件通过id
      * 
      * @param id 文件对象id

@@ -52,6 +52,11 @@ public class HandlerFileServiceImpl implements HandlerFileService {
         fileStoreService.create(fileStoreEntity);
     }
 
+    @Override
+    public void uploadFileSlice(MultipartFile file, Long id) {
+        // TODO 1.接受全部分片 进行整合
+    }
+
     /**
      * 下载文件
      * 

@@ -12,6 +12,11 @@ public interface CommonConstant {
     Integer RECOVER = 2;
 
     /**
+     * 使用状态
+     */
+    Integer ACTIVE_STATE = 1;
+
+    /**
      * 文件夹为1
      */
     Integer FOLDER = 1;
@@ -25,8 +30,4 @@ public interface CommonConstant {
      */
     Long TREE_ROOT_ID = 0L;
 
-    /**
-     * 使用状态
-     */
-    Integer ACTIVE_STATE = 1;
 }

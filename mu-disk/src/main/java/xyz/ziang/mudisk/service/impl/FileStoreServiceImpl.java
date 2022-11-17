@@ -1,5 +1,6 @@
 package xyz.ziang.mudisk.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -77,7 +78,7 @@ public class FileStoreServiceImpl extends MpCrudBaseServiceImpl<FileStoreEntity,
      */
     private List<TreeNode<FileStoreEntity>> buildRootTreeNode(Long rootId, List<FileStoreEntity> fileStoreEntities) {
         if (CollectionUtils.isEmpty(fileStoreEntities)) {
-            return List.of();
+            return new ArrayList<>();
         }
         // 构建节点数
         List<TreeNode<FileStoreEntity>> treeRootNodes = fileStoreEntities.stream()

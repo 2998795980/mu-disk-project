@@ -13,3 +13,13 @@ mybatis-plus:
   type-aliases-package: xyz.ziang.mudisk.entity
   #  mapper 文件映射
   mapper-locations: classpath:mapper/*.xml
+
+github:
+  clientId: 0bd250db8dcd761a59a2
+  clientSecret: 608caa56bf97f730e67835e4d906c89a56d36067
+  scope: read:user
+  authorizationUri: https://github.com/login/oauth/authorize
+  tokenUri: https://github.com/login/oauth/access_token
+  userInfoUri: https://api.github.com/user
+  userNameAttributeName: id
+  clientName: GitHub

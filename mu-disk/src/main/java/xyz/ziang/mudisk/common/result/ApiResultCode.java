@@ -13,7 +13,7 @@ public enum ApiResultCode implements Serializable {
     USER_ERROR("A0001", "用户端错误"), USER_LOGIN_ERROR("A0200", "用户登录异常"),
 
     USER_NOT_EXIST("A0201", "用户不存在"), USER_ACCOUNT_LOCKED("A0202", "用户账户被冻结"), USER_ACCOUNT_INVALID("A0203", "用户账户已作废"),
-    USER_ACCOUNT_REPEAT("A0204", "用户账户重复"),
+    USER_ACCOUNT_REPEAT("A0204", "用户账户重复"),CODE_EXPIRE("A0205","验证码过期"),CODE_ERROR("A0205","验证码错误"),CODE_IS_EMPTER("A0205","验证码为空"),
 
     USERNAME_OR_PASSWORD_ERROR("A0210", "用户名或密码错误"), PASSWORD_ENTER_EXCEED_LIMIT("A0211", "用户输入密码次数超限"),
     CLIENT_AUTHENTICATION_FAILED("A0212", "客户端认证失败"), TOKEN_INVALID_OR_EXPIRED("A0230", "token无效或已过期"),

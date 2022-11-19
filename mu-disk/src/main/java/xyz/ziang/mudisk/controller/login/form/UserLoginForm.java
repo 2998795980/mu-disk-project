@@ -8,16 +8,20 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.Email;
 
 /**
- * 登录表单 邮箱登录 格式验证
+ * 登录表单  账号登录 格式验证
  */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UserLoginForm2 {
-    @Length(min = 6,max = 12)
+public class UserLoginForm {
+    // 账号
+    private String username;
+    // 邮箱
     private String email;
-    @Email
+    // 手机号
+    private String phone;
+    // 密码
     private String password;
-    @Length(min = 5,max = 5)
+    // 验证码
     private String code;
 }

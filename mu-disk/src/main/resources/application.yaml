@@ -7,19 +7,30 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/mu_disk?serverTimezone=Asia/Shanghai&characterEncoding=utf-8&useSSL=false
     username: root
-    password: anzhen3531
+    password: root
+    #Spring Boot 默认是不注入这些属性值的，需要自己绑定
+    #druid 数据源专有配置
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+  redis:
+    port: 6379
+    database: 0
+    host: localhost
 # mybatis-plus
 mybatis-plus:
   type-aliases-package: xyz.ziang.mudisk.entity
   #  mapper 文件映射
   mapper-locations: classpath:mapper/*.xml
 
-github:
-  clientId: 0bd250db8dcd761a59a2
-  clientSecret: 608caa56bf97f730e67835e4d906c89a56d36067
-  scope: read:user
-  authorizationUri: https://github.com/login/oauth/authorize
-  tokenUri: https://github.com/login/oauth/access_token
-  userInfoUri: https://api.github.com/user
-  userNameAttributeName: id
-  clientName: GitHub
+
+shiro:
+  loginUrl: /login/method1

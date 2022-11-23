@@ -7,6 +7,7 @@ import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import xyz.ziang.mudisk.entity.Account;
 import xyz.ziang.mudisk.mapper.AccountMapper;
 
@@ -17,20 +18,17 @@ public class AccountRealm extends CommonRealm {
     AccountMapper accountMapper;
 
     @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken)
+        throws AuthenticationException {
         // 获取身份信息（用户名）
         String name = authenticationToken.getPrincipal().toString();
         // 查询用户
         Account account = accountMapper.QueryUserByAccount(name);
         // 非空判断
-        if(account != null) {
+        if (account != null) {
             // 封装
-            return new SimpleAuthenticationInfo(
-                    authenticationToken.getPrincipal(),
-                    authenticationToken.getCredentials(),
-                    ByteSource.Util.bytes(account.getSalt()),
-                    name
-            );
+            return new SimpleAuthenticationInfo(authenticationToken.getPrincipal(),
+                authenticationToken.getCredentials(), ByteSource.Util.bytes(account.getSalt()), name);
         }
         return null;
     }

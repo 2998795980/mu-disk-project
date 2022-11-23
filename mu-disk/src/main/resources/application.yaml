@@ -31,6 +31,5 @@ mybatis-plus:
   #  mapper 文件映射
   mapper-locations: classpath:mapper/*.xml
 
-
 shiro:
   loginUrl: /login/method1

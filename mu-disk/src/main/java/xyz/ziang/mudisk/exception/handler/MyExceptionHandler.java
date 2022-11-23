@@ -1,4 +1,4 @@
-package xyz.ziang.mudisk.handler;
+package xyz.ziang.mudisk.exception.handler;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

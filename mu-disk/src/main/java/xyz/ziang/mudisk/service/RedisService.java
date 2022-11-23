@@ -1,12 +1,12 @@
 package xyz.ziang.mudisk.service;
 
+import java.io.Serializable;
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
-
-import java.io.Serializable;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Redis API 工具类
@@ -78,7 +78,6 @@ public class RedisService {
         result = operations.get(key);
         return result;
     }
-
 
     /**
      * 删除对应的value

@@ -1,5 +1,7 @@
 package xyz.ziang.mudisk.realm;
 
+import java.util.List;
+
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -8,9 +10,8 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
-import xyz.ziang.mudisk.mapper.AccountMapper;
 
-import java.util.List;
+import xyz.ziang.mudisk.mapper.AccountMapper;
 
 public class CommonRealm extends AuthorizingRealm {
 
@@ -19,6 +20,7 @@ public class CommonRealm extends AuthorizingRealm {
 
     /**
      * 授权 获取Role，Permission
+     * 
      * @param principalCollection 用户信息
      * @return AuthorizationInfo
      */
@@ -37,12 +39,14 @@ public class CommonRealm extends AuthorizingRealm {
 
     /**
      * 自定义认证
+     * 
      * @param authenticationToken 用户信息
      * @return AuthenticationInfo
      * @throws AuthenticationException
      */
     @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken)
+        throws AuthenticationException {
 
         return null;
     }

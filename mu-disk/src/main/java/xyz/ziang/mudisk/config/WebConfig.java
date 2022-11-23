@@ -1,11 +1,12 @@
 package xyz.ziang.mudisk.config;
 
+import javax.annotation.Resource;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-import xyz.ziang.mudisk.interceptor.AutoIdempotentInterceptor;
 
-import javax.annotation.Resource;
+import xyz.ziang.mudisk.interceptor.AutoIdempotentInterceptor;
 
 /**
  * 将拦截器添加到配置类中，使拦截器生效

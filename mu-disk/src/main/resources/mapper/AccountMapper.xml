@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.ziang.mudisk.mapper.AccountMapper">
+
+    <select id="QueryRoleByAccount" resultType="Role">
+        select * from role where id in (
+	        select id from user_role where user_id = (
+		        select id from user where account = #{account}
+	        )
+        )
+    </select>
+
+    <select id="QueryUserByAccount" resultType="Account">
+        select * from user where username = #{account}
+    </select>
+
+    <select id="QueryUserByPhone" resultType="Account">
+        select * from user where phone = #{phone}
+    </select>
+
+    <select id="QueryUserByEmail" resultType="Account">
+        select * from user where email = #{email}
+    </select>
+
+    <select id="QueryUserRoleInfo" resultType="string">
+        select name from role where id in (
+	        select id from user_role where user_id = (
+		        select id from user where account = #{account}
+	        )
+        )
+    </select>
+
+    <select id="QueryUserPermissionInfo" resultType="string">
+        select permission from permission where id in (
+	        select permission_id from role_permission where role_id in (
+		        select role_id from user_role where user_id = (
+		            select id from user where account = #{principal}
+		        )
+		    )
+	    )
+    </select>
+
+</mapper>
